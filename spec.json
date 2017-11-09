@@ -4,8 +4,8 @@
     "title": "ANAPI",
     "description": "Music API",
     "license": {
-      "name": "MIT License",
-      "url": "https://opensource.org/licenses/MIT"
+      "name": "Apple License",
+      "url": "https://www.apple.com/legal/internet-services/terms/site.html"
     },
     "version": "1.0.0"
   },
