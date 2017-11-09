@@ -19,7 +19,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemasAlbum"
+                  "$ref": "#/components/schemasResponse"
                 }
               }
             }
@@ -63,6 +63,76 @@
             "type": "array",
             "items": {
               "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "/v1/catalog/{storefront}/albums": {
+      "get": {
+        "summary": "Get multiple albums",
+        "description": "Fetch one or more albums using their identifiers.",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemasResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "storefront",
+          "in": "path",
+          "description": "An iTunes Store territory, specified by an ISO-Alpha2 country code. The possible values are the id attributes of Storefront objects.",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A unique identifier for the album.",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        },
+        {
+          "name": "l",
+          "in": "query",
+          "description": "The localization to use, specified by a language tag. The possible values are in the `supportedLanguageTags` array belonging to the `Storefront` object specified by storefront. Otherwise, the storefrontâs `defaultLanguageTag` is used.",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "include",
+          "in": "query",
+          "description": "Additional relationships to include in the fetch.",
+          "required": false,
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "name": "ids",
+          "in": "query",
+          "description": "The unique identifiers for the albums",
+          "required": true,
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "number"
             }
           }
         }
@@ -172,7 +242,8 @@
             }
           }
         }
-      }
+      },
+      "Response": {}
     }
   }
 }
