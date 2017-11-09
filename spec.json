@@ -2,11 +2,177 @@
   "openapi": "3.0.0",
   "info": {
     "title": "ANAPI",
-    "description": "News API",
+    "description": "Music API",
     "license": {
       "name": "MIT License",
       "url": "https://opensource.org/licenses/MIT"
     },
     "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/catalog/{storefront}/albums/{id}": {
+      "get": {
+        "summary": "Get an album",
+        "description": "Fetch an album using its identifier.",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "storefront",
+          "in": "path",
+          "description": "An iTunes Store territory, specified by an ISO-Alpha2 country code. The possible values are the id attributes of Storefront objects.",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A unique identifier for the album.",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        },
+        {
+          "name": "l",
+          "in": "query",
+          "description": "The localization to use, specified by a language tag. The possible values are in the `supportedLanguageTags` array belonging to the `Storefront` object specified by storefront. Otherwise, the storefrontâs `defaultLanguageTag` is used.",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "include",
+          "in": "query",
+          "description": "Additional relationships to include in the fetch.",
+          "required": false,
+          "schema": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "components": {
+    "schemas": {
+      "Artwork": {},
+      "Editorial Notes": {},
+      "Play Parameters": {},
+      "Artist": {},
+      "Genre": {},
+      "Resource": {},
+      "Album": {
+        "properties": {
+          "artistName": {
+            "description": "The artist's name.",
+            "required": true,
+            "type": "string"
+          },
+          "artwork": {
+            "$ref": "#/components/schemas/Artwork",
+            "description": "The album artwork.",
+            "required": true
+          },
+          "contentRating": {
+            "description": "The RIAA rating of the content. The possible values for this rating are clean and explicit. No value means no rating.",
+            "type": "string"
+          },
+          "copyright": {
+            "description": "The copyright text.",
+            "required": true,
+            "type": "string"
+          },
+          "editorialNotes": {
+            "$ref": "#/components/schemas/Editorial Notes",
+            "description": "The notes about the album that appear in the iTunes Store."
+          },
+          "genreNames": {
+            "description": "The names of the genres associated with this album.",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isComplete": {
+            "description": "Indicates whether the album is complete. If true, the album is complete; otherwise, it is not. An album is complete if it contains all its tracks and songs.",
+            "required": true,
+            "type": "boolean"
+          },
+          "isSingle": {
+            "description": "Indicates whether the album contains a single song.",
+            "required": true,
+            "type": "boolean"
+          },
+          "name": {
+            "description": "The localized name of the album.",
+            "required": true,
+            "type": "string"
+          },
+          "recordLabel": {
+            "description": "The name of the record label for the album.",
+            "required": true,
+            "type": "string"
+          },
+          "releaseDate": {
+            "format": "date",
+            "description": "The release date of the album in YYYY-MM-DD format.",
+            "required": true,
+            "type": "string"
+          },
+          "playParams": {
+            "$ref": "#/components/schemas/Play Parameters",
+            "description": "The parameters to use to playback the tracks of the album."
+          },
+          "trackCount": {
+            "description": "The number of tracks.",
+            "required": true,
+            "type": "number"
+          },
+          "url": {
+            "description": "The URL for sharing an album in the iTunes Store.",
+            "required": true,
+            "type": "string"
+          },
+          "artists": {
+            "description": "The artists associated with the album.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Artist"
+            }
+          },
+          "genres": {
+            "description": "The genres for the album.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Genre"
+            }
+          },
+          "tracks": {
+            "description": "The songs and music videos on the album.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Resource"
+            }
+          }
+        }
+      }
+    }
   }
 }
